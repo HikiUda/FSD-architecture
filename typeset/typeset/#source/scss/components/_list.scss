@@ -1,0 +1,113 @@
+@import '../_varible.scss';
+
+.console-list {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 20px;
+   align-items: center;
+}
+
+//list
+
+.list {
+   margin-top: 50px;
+   display: flex;
+   flex-direction: column;
+   gap: 50px;
+}
+.message-block {
+   border: $underLineColor solid 3px;
+   border-radius: 16px;
+   padding: 25px 50px;
+   &__title {
+      font-size: 30px;
+      & + * {
+         margin-top: 20px;
+      }
+   }
+   &__text {
+      font-size: 20px;
+   }
+}
+.statement-block {
+   border: $underLineColor solid 3px;
+   border-radius: 16px;
+   padding: 25px 50px;
+   &__title {
+      font-size: 30px;
+      & + * {
+         margin-top: 20px;
+      }
+   }
+   &__info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+   }
+   &__state {
+      font-size: 20px;
+
+      &_success {
+         color: green;
+      }
+      &_regected {
+         color: red;
+      }
+      &pending {
+         color: blue;
+      }
+   }
+   &__more {
+      font-size: 20px;
+   }
+}
+
+//chat
+.chat {
+   &__title {
+      font-size: 36px;
+      & + * {
+         margin-top: 20px;
+      }
+   }
+   &__send-block {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      border-top: 2px solid $mainColor;
+      padding: 15px;
+   }
+   &__block {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      overflow: auto;
+      max-width: 800px;
+      max-height: 60vh;
+      padding-right: 20px;
+      padding-bottom: 15px;
+   }
+   &__message {
+      font-size: 24px;
+      padding: 10px;
+      border-bottom: 3px solid $underLineColor;
+      border-radius: 16px;
+      max-width: 600px;
+
+      & + * {
+         margin-top: 20px;
+      }
+
+      &_left {
+         align-self: start;
+      }
+      &_right {
+         align-self: end;
+      }
+      &_unread {
+         background-color: #d3d3d3;
+      }
+   }
+}

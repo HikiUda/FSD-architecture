@@ -1,0 +1,69 @@
+@import './../../../../shared/styles/varible.scss';
+.sidebar-button {
+   display: none;
+   z-index: 20;
+
+   @media (max-width: 740px) {
+      display: block;
+      position: fixed;
+      top: 15%;
+      left: 3%;
+      transition: transform 0.3s ease;
+
+      &._active {
+         transform: rotate(180deg);
+      }
+   }
+}
+
+.sidebar {
+   display: flex;
+   justify-content: center;
+   align-items: flex-start;
+   z-index: 19;
+
+   @media (max-width: 740px) {
+      position: fixed;
+      padding: 20px;
+      top: 0;
+      left: -140%;
+      width: 100%;
+      height: 100%;
+      padding: 100px 50px 50px;
+      background-color: #ffffff;
+      transition: left 0.3s ease;
+
+      &._active {
+         left: 0;
+      }
+   }
+
+   &__block {
+      display: inline-block;
+      border-radius: 16px;
+      border: $mainColor solid 3px;
+   }
+
+   &__link {
+      display: block;
+      font-size: 30px;
+      padding: 10px;
+
+      &:first-child {
+         border-radius: 10px 10px 0 0;
+      }
+
+      &:last-child {
+         border-radius: 0 0 10px 10px;
+      }
+
+      &:not(:last-child) {
+         border-bottom: $underLineColor solid 3px;
+      }
+
+      &._active {
+         background-color: $underLineColor;
+         color: #fff;
+      }
+   }
+}

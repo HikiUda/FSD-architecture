@@ -1,0 +1,33 @@
+@import './../../../../shared/styles/varible.scss';
+
+.info_block {
+   max-width: 900px;
+
+   & + * {
+      margin-top: 50px;
+   }
+}
+.characteristic {
+   display: flex;
+   gap: 20px;
+   padding: 10px 5px;
+   &:nth-child(2n) {
+      background-color: #ccc6c6;
+   }
+}
+.characteristic_title {
+   font-size: 20px;
+}
+.characteristic_info {
+   font-size: 20px;
+   display: flex;
+   gap: 20px;
+
+   & span {
+      cursor: pointer;
+   }
+}
+
+._active {
+   border-bottom: $underLineColor solid 2px;
+}

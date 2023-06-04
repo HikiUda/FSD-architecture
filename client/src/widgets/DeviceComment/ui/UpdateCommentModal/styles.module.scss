@@ -1,0 +1,21 @@
+.upd_modal {
+   &__title {
+      font-size: 25px;
+      & + * {
+         margin-top: 15px;
+      }
+   }
+   &__input {
+      & + * {
+         margin-top: 15px;
+      }
+   }
+   &__row {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+   }
+   & + * {
+      margin-top: 15px;
+   }
+}

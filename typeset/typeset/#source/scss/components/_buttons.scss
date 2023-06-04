@@ -1,0 +1,48 @@
+@import '../_varible.scss';
+
+//Blue-button
+.blue__button {
+   padding: 10px 20px;
+   background-color: $buttonColor;
+   font-size: 20px;
+   border-radius: 16px;
+   transition: all 0.3s ease;
+
+   &:hover {
+      background-color: $buttonHoverColor;
+   }
+}
+
+//svg-button
+.svg__button {
+   width: 40px;
+   height: 40px;
+   &:hover {
+      & svg {
+         opacity: 0.7;
+      }
+   }
+   & svg {
+      width: 40px;
+      height: 40px;
+   }
+}
+
+//sidebar-button
+
+.sidebar-button {
+   display: none;
+   z-index: 20;
+
+   @media (max-width: 740px) {
+      display: block;
+      position: fixed;
+      top: 15%;
+      left: 3%;
+      transition: transform 0.3s ease;
+
+      &._active {
+         transform: rotate(180deg);
+      }
+   }
+}

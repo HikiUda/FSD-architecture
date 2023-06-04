@@ -1,0 +1,18 @@
+@import './../../../shared/styles/varible.scss';
+
+.big_title {
+   font-size: 40px;
+   @media (max-width: 991px) {
+      font-size: 30px;
+   }
+   & + * {
+      margin-top: 25px;
+   }
+}
+.device_page {
+   &__container {
+   }
+}
+.small_title {
+   font-size: 20px;
+}

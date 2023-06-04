@@ -1,0 +1,76 @@
+@import './varible';
+.__container {
+   max-width: 1720px;
+   margin: 0 auto;
+   padding: 0 15px;
+}
+
+.perple-underline {
+   padding: 10px;
+   border-bottom: 3px solid $underLineColor;
+   border-radius: 16px;
+}
+
+.wrapper {
+   position: relative;
+   display: grid;
+   grid-template-columns: repeat(4, 1fr);
+   margin-top: 70px;
+   gap: 10px;
+
+   & .sidebar {
+      grid-column: 1 / 2;
+   }
+   & main {
+      grid-column: 2 / 5;
+   }
+   @media (max-width: 740px) {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 20px;
+      & main {
+         grid-column: 1 / 2;
+      }
+   }
+}
+
+.sidebar {
+   display: flex;
+   justify-content: center;
+   align-items: start;
+   z-index: 15;
+
+   @media (max-width: 740px) {
+      position: fixed;
+      padding: 20px;
+      top: 0;
+      left: -140%;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      transition: left 0.3s ease;
+
+      &._active {
+         left: 0;
+      }
+   }
+
+   &__block {
+      display: inline-block;
+      border-radius: 16px;
+      border: $mainColor solid 3px;
+   }
+
+   &__link {
+      font-size: 30px;
+      padding: 10px;
+
+      &:not(:last-child) {
+         border-bottom: $underLineColor solid 3px;
+      }
+
+      &._active {
+         background-color: $underLineColor;
+         color: #fff;
+      }
+   }
+}

@@ -1,0 +1,13 @@
+@import './../../styles/varible';
+
+.blue__button {
+   padding: 10px 15px;
+   background-color: $buttonColor;
+   font-size: 18px;
+   border-radius: 16px;
+   transition: all 0.3s ease;
+
+   &:hover {
+      background-color: $buttonHoverColor;
+   }
+}

@@ -1,0 +1,10 @@
+export const P_USER_CHAT = '/user/chat';
+export const P_USER_PURCHES = '/user/purches';
+export const P_USER_STATEMENT = '/user/statement';
+export const P_USER_CART = '/user/cart';
+export const P_USER_LIKED = '/user/liked';
+export const P_USER_SUPPORT = '/user/support';
+export const P_USER_MYPRODUCT = '/user/myproduct';
+export const P_USER = '/user';
+export const P_SHOP = '/';
+export const P_DEVICE = '/device';

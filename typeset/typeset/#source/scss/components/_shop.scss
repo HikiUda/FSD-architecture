@@ -1,0 +1,100 @@
+@import '../_varible.scss';
+
+.search {
+   margin-top: 50px;
+   &__container {
+   }
+   &__row {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+   }
+   &__input {
+      &:nth-child(1) {
+         border-radius: 0px 0px 16px 0px;
+         width: 500px;
+      }
+   }
+}
+
+//shop-tape
+
+.shop-tape {
+   margin-top: 100px;
+   &__container {
+   }
+   &__tape {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: max-content(500px);
+      gap: 30px;
+
+      @media (max-width: 1450px) {
+         grid-template-columns: repeat(3, 1fr);
+      }
+      @media (max-width: 1050px) {
+         grid-template-columns: repeat(2, 1fr);
+      }
+      @media (max-width: 740px) {
+         grid-template-columns: repeat(1, 1fr);
+      }
+   }
+   &__card {
+   }
+}
+
+//device-card
+
+.device-card {
+   display: flex;
+   flex-direction: column;
+   justify-self: center;
+
+   min-width: 300px;
+   min-height: 450px;
+   padding: 30px 35px;
+
+   background: #ffffff;
+   border: 5px solid #542ebd;
+   box-shadow: 10px 10px 4px rgba(0, 0, 0, 0.25);
+   border-radius: 24px;
+
+   &__img {
+      align-self: center;
+      position: relative;
+      width: 200px;
+      height: 200px;
+
+      & img {
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         object-fit: contain;
+      }
+
+      & + * {
+         margin-top: 20px;
+      }
+   }
+   &__title {
+      font-size: 20px;
+      & + * {
+         margin-top: 20px;
+      }
+   }
+   &__price {
+      font-size: 20px;
+      & + * {
+         margin-top: 20px;
+      }
+   }
+   &__buttons {
+      display: flex;
+      flex: 1 1 auto;
+      align-self: end;
+      align-items: end;
+      gap: 15px;
+   }
+}

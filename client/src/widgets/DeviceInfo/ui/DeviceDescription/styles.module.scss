@@ -1,0 +1,11 @@
+@import './../../../../shared/styles/varible.scss';
+
+.description_block {
+   max-width: 900px;
+   & + * {
+      margin-top: 50px;
+   }
+}
+.description {
+   font-size: 20px;
+}

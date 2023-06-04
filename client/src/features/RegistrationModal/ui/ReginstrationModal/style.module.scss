@@ -1,0 +1,10 @@
+.pirple_span {
+   span {
+      color: #692de8;
+      transition: color 0.3s ease;
+      cursor: pointer;
+      &:hover {
+         color: #7d50dd;
+      }
+   }
+}
