@@ -9,7 +9,7 @@ import { useAppSelector } from 'shared/lib/hooks';
 import { checkRoles } from 'shared/lib/functions/checkRoles';
 import { LogoutButton } from 'features/LoguotButton';
 import { useNavigate } from 'react-router-dom';
-import { P_SHOP, P_USER_LIKED } from 'shared/lib/pathes';
+import { P_ADMIN_STATEMENT, P_SHOP, P_USER_LIKED } from 'shared/lib/pathes';
 
 export const Header = () => {
    const [isBurgerActive, setIsBurgerActive] = useState<boolean>(false);
@@ -70,7 +70,11 @@ export const Header = () => {
                      ) : null}
 
                      {user?.user?.roles && checkRoles(['ADMIN'], user.user.roles) ? (
-                        <SimpleButton moreClass="header__button">АдминПанель</SimpleButton>
+                        <SimpleButton
+                           onClick={() => navigate(P_ADMIN_STATEMENT)}
+                           moreClass="header__button">
+                           АдминПанель
+                        </SimpleButton>
                      ) : null}
 
                      {user.auth ? (

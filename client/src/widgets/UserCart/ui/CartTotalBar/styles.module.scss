@@ -1,0 +1,17 @@
+@import './../../../../shared/styles/varible.scss';
+
+.totalbar {
+   &_block {
+      padding: 20px;
+      display: inline-block;
+      border-radius: 16px;
+      border: $mainColor solid 3px;
+   }
+
+   &_title {
+      font-size: 24px;
+      & + * {
+         margin-top: 20px;
+      }
+   }
+}

@@ -38,7 +38,7 @@ class StatementsRepository {
    }
    async getSome(limit, offset, params) {
       try {
-         const data = await Statements.findAll({
+         const data = await Statements.findAndCountAll({
             where: params,
             limit,
             offset,

@@ -3,18 +3,22 @@ import styles from './style.module.scss';
 import Comment from './../Comment';
 import { ConfirmModal } from 'entities/ConfirmModal';
 import { useState } from 'react';
-import { fetchDeleteComment } from 'widgets/DeviceComment/api/fetchDeleteComment';
 import UpdateCommentModal from '../UpdateCommentModal';
 import { useInput } from 'shared/lib/hooks';
-import { fetchUpdateComment } from 'widgets/DeviceComment/api/fetchUpdateComment';
 
 interface CommentBlockProps {
    comments: IDeviceComment[];
-   setComments: (comment: IDeviceComment[]) => void;
-   deviceId: number;
+   deleteFunc: (target: number) => void;
+   updateFunc: (target: number, updateValue: string) => void;
+   refElement: (node: HTMLElement) => void;
 }
 
-const CommentBlock: React.FC<CommentBlockProps> = ({ comments, setComments, deviceId }) => {
+const CommentBlock: React.FC<CommentBlockProps> = ({
+   comments,
+   updateFunc,
+   deleteFunc,
+   refElement,
+}) => {
    const [showDelete, setShowDelete] = useState<boolean>(false);
    const [showUpdate, setShowUpdate] = useState<boolean>(false);
    const [target, setTarget] = useState<number>(0);
@@ -23,20 +27,15 @@ const CommentBlock: React.FC<CommentBlockProps> = ({ comments, setComments, devi
 
    function deleteComment(decide: boolean) {
       if (decide) {
-         fetchDeleteComment(deviceId, target);
-         setComments(comments.filter((com) => com.id !== target));
+         deleteFunc(target);
       }
       setTarget(0);
    }
    function updateComment(decide: boolean) {
       if (decide) {
-         fetchUpdateComment(deviceId, target, updateValue);
-         setComments(
-            comments.map((com) =>
-               com.id === target ? { ...com, content: (com.content = updateValue) } : com,
-            ),
-         );
+         updateFunc(target, updateValue);
       }
+      changeUpdateValue('');
       setTarget(0);
    }
 
@@ -53,8 +52,16 @@ const CommentBlock: React.FC<CommentBlockProps> = ({ comments, setComments, devi
    return (
       <>
          <div className={styles.device_comment__block}>
-            {comments.map((comment) => {
-               return (
+            {comments.map((comment, index) => {
+               return comments.length === index + 1 ? (
+                  <Comment
+                     key={comment.id}
+                     refElement={refElement}
+                     comment={comment}
+                     deleteFunc={() => handleDelete(comment.id)}
+                     updateFunc={() => handleUpdate(comment)}
+                  />
+               ) : (
                   <Comment
                      key={comment.id}
                      comment={comment}

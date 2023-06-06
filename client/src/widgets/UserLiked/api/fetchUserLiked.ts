@@ -6,6 +6,6 @@ export const fetchUserLiked = async () => {
       const response = await $api.get<IOneDevice[]>('/user/liked');
       return response.data;
    } catch (e) {
-      console.log(e);
+      throw e;
    }
 };

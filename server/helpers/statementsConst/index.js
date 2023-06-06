@@ -18,7 +18,7 @@ const AppNumbers = {
 
 const StatementsStates = {
    pending: 'pending',
-   rejected: 'regected',
+   rejected: 'rejected',
    accept: 'accept',
 };
 

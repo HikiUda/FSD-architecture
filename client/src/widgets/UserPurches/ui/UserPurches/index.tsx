@@ -1,21 +1,22 @@
-import { IPurchesDevice } from 'shared/model/DeviceModel';
 import styles from './styles.module.scss';
-import { useState, useEffect } from 'react';
-import { fetchPurchesDevcies } from 'widgets/UserPurches/api/purches';
-import DeviceCardForUser from 'features/DeviceCardForUser';
+
 import { DeviceCardForPurches } from 'features/DeviceCardForPurches';
 import { ClipLoader } from 'react-spinners';
+import usePurches from 'widgets/UserPurches/lib/hooks/usePurches';
 
 const UserPurches = () => {
-   const [devices, setDevices] = useState<IPurchesDevice[] | null>(null);
+   const { purches, loading, error } = usePurches();
 
-   useEffect(() => {
-      fetchPurchesDevcies().then((data) => (data ? setDevices(data) : null));
-   }, []);
-
-   if (!devices) {
-      return (
-         <div className={styles.user__tape}>
+   return (
+      <div className={styles.user__tape}>
+         {purches.map((device) => (
+            <DeviceCardForPurches
+               moreClasses={styles.user__card}
+               key={device.purchesId}
+               device={device}
+            />
+         ))}
+         {loading && (
             <ClipLoader
                color={'#54fa34'}
                loading={true}
@@ -23,20 +24,8 @@ const UserPurches = () => {
                aria-label="Loading Spinner"
                data-testid="loader"
             />
-            ;
-         </div>
-      );
-   }
-
-   return (
-      <div className={styles.user__tape}>
-         {devices.map((device) => (
-            <DeviceCardForPurches
-               moreClasses={styles.user__card}
-               key={device.purchesId}
-               device={device}
-            />
-         ))}
+         )}
+         {error ? error : null}
       </div>
    );
 };

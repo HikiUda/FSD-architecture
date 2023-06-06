@@ -6,6 +6,6 @@ export const fetchCartDevices = async () => {
       const response = await $api.get<ICartDevice[]>('/basket');
       return response.data;
    } catch (e) {
-      console.log(e);
+      throw e;
    }
 };

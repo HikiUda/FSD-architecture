@@ -1,8 +1,12 @@
 import { IisLiked } from 'shared/model/LIkedModel';
 import { $api } from './base';
 
-export const fetchChangeLiked = (deviceId: number | string) => {
-   $api.post<void>(`/user/liked/${deviceId}`);
+export const fetchChangeLiked = async (deviceId: number | string) => {
+   try {
+      await $api.post<any>(`/user/liked/${deviceId}`);
+   } catch (e) {
+      throw e;
+   }
 };
 export const fetchIsLiked = async (deviceId: number | string) => {
    try {
@@ -10,6 +14,6 @@ export const fetchIsLiked = async (deviceId: number | string) => {
 
       return response.data;
    } catch (e) {
-      console.log(e);
+      throw e;
    }
 };

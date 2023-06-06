@@ -1,0 +1,18 @@
+@import './../../../../shared/styles/varible.scss';
+
+.list_block {
+   border: $underLineColor solid 3px;
+   border-radius: 16px;
+   padding: 25px 50px;
+   transition: all 0.3s ease;
+
+   &:hover {
+      background-color: rgb(207, 166, 226);
+   }
+   &__title {
+      font-size: 30px;
+      & + * {
+         margin-top: 20px;
+      }
+   }
+}

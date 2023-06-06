@@ -6,6 +6,6 @@ export const fetchDevice = async (id: number) => {
       const response = await $api.get<IOneDevice>(`/device/${id}`);
       return response.data;
    } catch (e) {
-      console.log(e);
+      throw e;
    }
 };

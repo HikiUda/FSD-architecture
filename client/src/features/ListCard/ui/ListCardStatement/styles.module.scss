@@ -1,0 +1,23 @@
+.info {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-wrap: wrap;
+   gap: 20px;
+}
+.state {
+   font-size: 20px;
+
+   &_success {
+      color: green;
+   }
+   &_rejected {
+      color: red;
+   }
+   &_pending {
+      color: blue;
+   }
+}
+.more {
+   font-size: 20px;
+}

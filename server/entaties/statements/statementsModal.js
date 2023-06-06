@@ -3,7 +3,7 @@ class OneStatementDto {
    info;
    title;
    description;
-   user;
+   userName;
    userId;
    state;
    adminComment;
@@ -14,7 +14,7 @@ class OneStatementDto {
       this.info = data.info;
       this.title = data.title;
       this.description = data.description;
-      this.user = data.user.email;
+      this.userName = data.user.email;
       this.userId = data.userId;
       this.state = data.state;
       this.adminComment = data.adminComment;
@@ -27,12 +27,14 @@ class OneShortStatementDto {
    title;
    state;
    appNumber;
+   userId;
 
    constructor(data) {
       this.id = data.id;
       this.title = data.title;
       this.state = data.state;
       this.appNumber = data.appNumber;
+      this.userId = data.userId;
    }
 }
 

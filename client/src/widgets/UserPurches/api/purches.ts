@@ -6,6 +6,6 @@ export const fetchPurchesDevcies = async () => {
       const response = await $api.get<IPurchesDevice[]>('/user/purches');
       return response.data;
    } catch (e) {
-      console.log(e);
+      throw e;
    }
 };

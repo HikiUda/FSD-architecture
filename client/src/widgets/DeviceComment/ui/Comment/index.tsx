@@ -8,12 +8,13 @@ interface CommentPorps {
    comment: IDeviceComment;
    updateFunc: (comment: IDeviceComment) => void;
    deleteFunc: (comment: IDeviceComment) => void;
+   refElement?: (node: HTMLDivElement) => void;
 }
 
-const Comment: React.FC<CommentPorps> = ({ comment, deleteFunc, updateFunc }) => {
+const Comment: React.FC<CommentPorps> = ({ comment, deleteFunc, updateFunc, refElement }) => {
    const { user } = useAppSelector((state) => state.user);
    return (
-      <div className={styles.comment__card}>
+      <div ref={refElement} className={styles.comment__card}>
          <div className={styles.comment__row}>
             <h5 className={styles.comment__user_name}>{comment.userName}</h5>
             {user.id === comment.userId ? (
