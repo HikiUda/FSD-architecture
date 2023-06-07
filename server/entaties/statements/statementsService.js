@@ -98,6 +98,7 @@ class StatementsService {
          if (userId) {
             params.userId = { [Op.eq]: userId };
          }
+
          const statements = await statementsRepository.getSome(limit, offset, params);
          const statementsDto = statements.rows.map((statement) => {
             const statementDto = new OneShortStatementDto(statement);

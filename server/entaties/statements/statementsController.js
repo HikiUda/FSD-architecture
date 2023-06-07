@@ -95,9 +95,9 @@ class StatementsController {
             limit = 10,
             page = 1,
             date = 0,
-            state = '',
-            appNumber = 0,
-            userId = 0,
+            state = null,
+            appNumber = null,
+            userId = null,
          } = req.query;
          const data = await statementsService.getSome(limit, page, {
             date,

@@ -28,6 +28,7 @@ import { UserPurches } from 'widgets/UserPurches';
 import DeviceInfoPurches from 'widgets/DeviceInfo/ui/DeviceInfoPurches';
 import AdminPage from './AdminPage';
 import { AdminStatementList } from 'widgets/AdminStatement';
+import { StatementInfo } from 'widgets/StatementInfo';
 
 export const Routing = () => {
    const dispatch = useAppDispatch();
@@ -54,6 +55,7 @@ export const Routing = () => {
             </Route>
             <Route path={P_ADMIN} element={<AdminPage />}>
                <Route path={P_ADMIN_STATEMENT} element={<AdminStatementList />} />
+               <Route path={`${P_ADMIN_STATEMENT}/:statementId`} element={<StatementInfo />} />
                <Route path={P_ADMIN_CHAT} element={<div>{P_ADMIN_CHAT} </div>} />
             </Route>
          </Routes>
