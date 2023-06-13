@@ -1,0 +1,17 @@
+.title {
+   font-size: 24px;
+   & + * {
+      margin-top: 15px;
+   }
+}
+
+.row {
+   display: flex;
+   align-items: center;
+   gap: 15px;
+}
+.block {
+   display: flex;
+   flex-direction: column;
+   gap: 20px;
+}

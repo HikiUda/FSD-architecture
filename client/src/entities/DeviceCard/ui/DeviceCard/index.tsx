@@ -7,14 +7,20 @@ interface DeviceCardProps {
    device: IOneDevice;
    moreClasses?: string;
    children?: React.ReactNode;
+   refElement?: (node: HTMLDivElement) => void;
 }
 
 //'shop-tape'
 
-const DeviceCard: React.FC<DeviceCardProps> = ({ device, moreClasses = '', children }) => {
+const DeviceCard: React.FC<DeviceCardProps> = ({
+   device,
+   moreClasses = '',
+   children,
+   refElement,
+}) => {
    const { img, price, name, brandName, typeName } = device;
    return (
-      <div className={`${styles.device_card} ${moreClasses}`}>
+      <div ref={refElement} className={`${styles.device_card} ${moreClasses}`}>
          <div className={styles.device_card__img}>
             <img src={`${BASE_URL}/${img}`} alt="img" />
          </div>

@@ -1,8 +1,8 @@
 import { ListCard } from 'entities/ListCard';
 import styles from './styles.module.scss';
 import { IOneShortStatement, StatementsStates } from 'shared/model/StatementModel';
-import { useNavigate } from 'react-router-dom';
-import { P_ADMIN_STATEMENT } from 'shared/lib/pathes';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { P_ADMIN_STATEMENT, P_USER_STATEMENT } from 'shared/lib/pathes';
 
 interface ListCardStatementProps {
    statement: IOneShortStatement;
@@ -11,8 +11,17 @@ interface ListCardStatementProps {
 
 const ListCardStatement: React.FC<ListCardStatementProps> = ({ statement, refElement }) => {
    const navigate = useNavigate();
+   const location = useLocation();
+
+   function toNavigate() {
+      if (location.pathname.includes(P_ADMIN_STATEMENT)) {
+         navigate(`${P_ADMIN_STATEMENT}/${statement.id}`);
+      } else if (location.pathname.includes(P_USER_STATEMENT)) {
+         navigate(`${P_USER_STATEMENT}/${statement.id}`);
+      }
+   }
    return (
-      <ListCard title={statement.title}>
+      <ListCard onClick={toNavigate} title={statement.title}>
          <div ref={refElement} className={styles.info}>
             {statement.state === StatementsStates.ACCEPT && (
                <span className={`${styles.state} ${styles.state_success}`}>Принято</span>
@@ -23,9 +32,7 @@ const ListCardStatement: React.FC<ListCardStatementProps> = ({ statement, refEle
             {statement.state === StatementsStates.REJECTED && (
                <span className={`${styles.state} ${styles.state_rejected}`}>отклонено</span>
             )}
-            <span
-               onClick={() => navigate(`${P_ADMIN_STATEMENT}/${statement.id}`)}
-               className={styles.more}>
+            <span onClick={toNavigate} className={styles.more}>
                подробнее...
             </span>
          </div>

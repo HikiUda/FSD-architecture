@@ -3,8 +3,8 @@ import styles from './style.module.scss';
 import Comment from './../Comment';
 import { ConfirmModal } from 'entities/ConfirmModal';
 import { useState } from 'react';
-import UpdateCommentModal from '../UpdateCommentModal';
 import { useInput } from 'shared/lib/hooks';
+import { InputModal } from 'features/InputModal';
 
 interface CommentBlockProps {
    comments: IDeviceComment[];
@@ -77,7 +77,7 @@ const CommentBlock: React.FC<CommentBlockProps> = ({
             toDecide={deleteComment}
             title="Вы уверены?"
          />
-         <UpdateCommentModal
+         <InputModal
             value={updateValue}
             setValue={changeUpdateValue}
             toDecide={updateComment}

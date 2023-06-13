@@ -1,5 +1,5 @@
+const { Op } = require('sequelize');
 const { Chat, User, UserChat, ChatContent } = require('../../models');
-const { create } = require('../deviceComments/deviceCommentRepository');
 
 class ChatRepository {
    async createChat(userIdOne, userIdTwo) {
@@ -41,8 +41,32 @@ class ChatRepository {
    }
    async getUserChats(userId) {
       try {
-         const chats = await Chat.findAll({ userId });
+         const { email } = await User.findOne({ where: { id: userId } });
+         const chats = await Chat.findAll({
+            where: {
+               name: {
+                  [Op.iLike]: `%${email}%`,
+               },
+            },
+         });
+
          return chats;
+      } catch (e) {
+         throw e;
+      }
+   }
+   async getChat(chatId) {
+      try {
+         const chat = await Chat.findOne({ where: { id: chatId } });
+         return chat;
+      } catch (e) {
+         throw e;
+      }
+   }
+   async getSupportChat(chatId) {
+      try {
+         const chat = await Chat.findOne({ where: { id: chatId, withAdmin: true } });
+         return chat;
       } catch (e) {
          throw e;
       }

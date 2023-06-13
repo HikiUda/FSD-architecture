@@ -7,7 +7,9 @@ const router = Router();
 
 router.get('/mychat', chatController.getUserChats);
 router.get('/adminchat', checkRolesMiddleware([ADMIN]), chatController.getAdminChats);
+router.get('/support', chatController.getSupportChat);
 router.post('/mychat', chatController.createChat);
 router.post('/adminchat', chatController.createChatWithAdmin);
+router.get('/:chatId', chatController.getChat);
 
 module.exports = router;

@@ -1,0 +1,55 @@
+@import './../../../../shared/styles/varible.scss';
+
+//chat
+.chat {
+   &__title {
+      font-size: 36px;
+      & + * {
+         margin-top: 20px;
+      }
+      max-width: 800px;
+   }
+   &__send_block {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+
+      padding: 15px;
+   }
+   &__block {
+      border-bottom: 2px solid $mainColor;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+      overflow: auto;
+      max-width: 800px;
+      max-height: 60vh;
+      padding-right: 20px;
+      padding-bottom: 15px;
+      min-height: 400px;
+      & + * {
+         margin-top: 25px;
+      }
+   }
+   &__message {
+      font-size: 24px;
+      padding: 10px;
+      border-bottom: 3px solid $underLineColor;
+      border-radius: 16px;
+      max-width: 600px;
+
+      & + * {
+         margin-top: 20px;
+      }
+
+      &_left {
+         align-self: flex-start;
+      }
+      &_right {
+         align-self: flex-end;
+      }
+      &_unread {
+         background-color: #d3d3d3;
+      }
+   }
+}

@@ -30,7 +30,7 @@ app.use(fileUpload({}));
 app.use(express.static(path.resolve(__dirname, 'static')));
 app.use('/api', router);
 
-app.ws('/api/chat', (ws, req) => {
+app.ws('/chat', (ws, req) => {
    chatController.handleWSRequest(ws, req, aWss);
 });
 

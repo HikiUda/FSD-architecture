@@ -55,7 +55,7 @@ class DeviceRepository {
    }
    async getAllDevice(limit, offset, params) {
       try {
-         const devices = await Device.findAll({
+         const devices = await Device.findAndCountAll({
             where: params,
             limit,
             offset,

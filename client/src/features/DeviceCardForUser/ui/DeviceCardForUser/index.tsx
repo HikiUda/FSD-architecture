@@ -11,9 +11,14 @@ import { AddSVG, CheckMarkSVG, LikedSVG } from '../SVGcomp';
 interface DeviceCardForUserProps {
    moreClasses?: string;
    device: IOneDevice;
+   refElement?: (node: HTMLDivElement) => void;
 }
 
-const DeviceCardForUser: React.FC<DeviceCardForUserProps> = ({ device, moreClasses }) => {
+const DeviceCardForUser: React.FC<DeviceCardForUserProps> = ({
+   device,
+   moreClasses,
+   refElement,
+}) => {
    const { id } = device;
    const { auth } = useAppSelector((state) => state.user);
    const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -36,7 +41,7 @@ const DeviceCardForUser: React.FC<DeviceCardForUserProps> = ({ device, moreClass
    }
 
    return (
-      <DeviceCard device={device} moreClasses={moreClasses}>
+      <DeviceCard refElement={refElement} device={device} moreClasses={moreClasses}>
          <Link to={`${P_DEVICE}/${id}`} className="blue__button">
             Подробнее
          </Link>

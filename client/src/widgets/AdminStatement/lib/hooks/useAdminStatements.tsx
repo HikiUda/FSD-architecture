@@ -11,6 +11,7 @@ const useAdminStatements = (
    pageNumber: number,
    state: StatementsStates | null,
    appNumber: StatementsAppNumbers | null,
+   userId: number | null = null,
 ) => {
    const limit = 5;
    const [statements, setStatements] = useState<IOneShortStatement[]>([]);
@@ -27,10 +28,9 @@ const useAdminStatements = (
       setLoading(true);
       setError('');
       const cancel = new AbortController();
-      const params = { page: pageNumber, limit, state, appNumber };
+      const params = { page: pageNumber, limit, state, appNumber, userId };
       fetchAdminStatements(params, cancel.signal)
          .then((data) => {
-            console.log(data.statements);
             setStatements((prev) => [...prev, ...data.statements]);
             if (data.count < limit * pageNumber) {
                setHasMore(false);

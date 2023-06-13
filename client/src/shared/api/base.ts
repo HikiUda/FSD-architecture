@@ -3,7 +3,7 @@ import { AuthResponse } from 'shared/model/AuthModel';
 
 export const BASE_URL = 'http://localhost:5000';
 
-const API_URL = `${BASE_URL}/api`;
+export const API_URL = `${BASE_URL}/api`;
 
 export const $api = axios.create({ baseURL: API_URL, withCredentials: true });
 

@@ -9,6 +9,9 @@ import { useAppSelector } from 'shared/lib/hooks';
 import { CheckMarkSVG } from 'features/DeviceCardForUser/ui/SVGcomp';
 import { ClipLoader } from 'react-spinners';
 import useGetDeviceInfo from 'widgets/DeviceInfo/lib/hooks/useGetDeviceInfo';
+import { fetchCreateChat } from 'shared/api/fetchCreateChat';
+import { useNavigate } from 'react-router-dom';
+import { P_USER_CHAT } from 'shared/lib/pathes';
 
 interface DeviceInfoProps {
    id: number;
@@ -18,6 +21,19 @@ const DeviceInfo: React.FC<DeviceInfoProps> = ({ id }) => {
    const { device, loading, error, isLiked, isAdded, addInCart, changeIsLiked } =
       useGetDeviceInfo(id);
    const { auth } = useAppSelector((state) => state.user);
+   const navigate = useNavigate();
+
+   function openChatWithVendor() {
+      if (device) {
+         fetchCreateChat(device.userId)
+            .then((data) => {
+               navigate(`${P_USER_CHAT}/${data.id}`);
+            })
+            .catch((e) => {
+               console.log(e);
+            });
+      }
+   }
 
    if (!device) {
       return (
@@ -56,6 +72,9 @@ const DeviceInfo: React.FC<DeviceInfoProps> = ({ id }) => {
                      ) : (
                         <SimpleButton onClick={() => addInCart()}>В корзину</SimpleButton>
                      )}
+                     <SimpleButton onClick={openChatWithVendor}>
+                        Задать вопрос продовцу
+                     </SimpleButton>
                   </>
                ) : null}
             </DeviceMainInfo>

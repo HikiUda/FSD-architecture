@@ -1,0 +1,12 @@
+@import './../../../../shared/styles/varible.scss';
+
+.statementbar {
+   &_block {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 20px;
+      border-radius: 16px;
+      border: $mainColor solid 3px;
+   }
+}

@@ -1,11 +1,21 @@
+import { GenericAbortSignal } from 'axios';
 import { $api } from 'shared/api';
-import { IOneDevice } from 'shared/model/DeviceModel';
+import { IDevices } from 'shared/model/DeviceModel';
 
-export async function fetchDevices(limit: number = 10, page: number = 1, search: string = '') {
+export interface fetchDevicesParams {
+   limit: number;
+   page: number;
+   search?: string;
+   brandId?: number;
+   typeId?: number;
+   signal?: GenericAbortSignal | undefined;
+}
+
+export async function fetchDevices(params: fetchDevicesParams) {
    try {
-      const response = await $api.get<IOneDevice[]>('/device', { params: { limit, page, search } });
+      const response = await $api.get<IDevices>('/device', { params });
       return response.data;
    } catch (e) {
-      console.log(e);
+      throw e;
    }
 }

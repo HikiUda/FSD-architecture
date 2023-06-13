@@ -11,3 +11,4 @@ export const P_DEVICE = '/device';
 export const P_ADMIN_STATEMENT = '/admin/statement';
 export const P_ADMIN_CHAT = '/admin/chat';
 export const P_ADMIN = '/admin';
+export const P_USER_MYPRODUCT_EDITDEVICE = '/user/myproduct_editdevice';

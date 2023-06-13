@@ -17,9 +17,11 @@ class ChatContentDto {
    text;
    isRead;
    createdAt;
+   userId;
 
    constructor(data) {
       this.id = data.id;
+      this.userId = data.userId;
       this.text = data.text;
       this.isRead = data.isRead;
       this.createdAt = data.createdAt;

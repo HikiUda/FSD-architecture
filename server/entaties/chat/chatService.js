@@ -33,6 +33,27 @@ class ChatService {
          throw e;
       }
    }
+   async getChat(chatId) {
+      try {
+         const chat = await chatRepository.getChat(chatId);
+         const chatDto = new ChatDto(chat);
+         return chatDto;
+      } catch (e) {
+         throw e;
+      }
+   }
+   async getSupportChat(userId) {
+      try {
+         const chat = await chatRepository.getSupportChat(userId);
+         if (!chat) {
+            return null;
+         }
+         const chatDto = new ChatDto(chat);
+         return chatDto;
+      } catch (e) {
+         throw e;
+      }
+   }
    async getAdminChats() {
       try {
          const chats = await chatRepository.getAdminChats();
@@ -53,7 +74,7 @@ class ChatService {
             const messageDto = new ChatContentDto(message);
             return { ...messageDto };
          });
-         return messagesDto;
+         return { messages: messagesDto };
       } catch (e) {
          throw e;
       }
@@ -63,12 +84,19 @@ class ChatService {
          const data = await chatRepository.createMessage(text, userId, chatId);
          aWss.clients.forEach((client) => {
             if (client.id === chatId) {
-               const message = JSON.stringify({
-                  event: 'sendMessage',
+               const message = {
                   text,
+                  userId,
+                  isRead: true,
+                  id: Date.now(),
                   chatId,
+                  createdAt: Date.now(),
+               };
+               const mes = JSON.stringify({
+                  event: 'sendMessage',
+                  message,
                });
-               client.send(message);
+               client.send(mes);
             }
          });
          return data;

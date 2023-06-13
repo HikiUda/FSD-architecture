@@ -1,0 +1,16 @@
+.row {
+   display: flex;
+   align-items: center;
+   gap: 20px;
+   flex-wrap: wrap;
+   & + * {
+      margin-top: 20px;
+   }
+}
+.title {
+   font-size: 25px;
+   max-width: 500px;
+   & + * {
+      margin-top: 20px;
+   }
+}

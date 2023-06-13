@@ -4,9 +4,7 @@ import { StatementsStateDropDown, StatementsAppNumberDropDown } from 'features/D
 import { ListCardStatement } from 'features/ListCard';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ClipLoader } from 'react-spinners';
-import { useInput } from 'shared/lib/hooks';
 import { StatementsAppNumbers, StatementsStates } from 'shared/model/StatementModel';
-import { MainInput } from 'shared/ui/MainInput';
 import useAdminStatements from 'widgets/AdminStatement/lib/hooks/useAdminStatements';
 
 const AdminStatementList = () => {
@@ -14,7 +12,6 @@ const AdminStatementList = () => {
    const [state, setState] = useState<StatementsStates | null>(null);
    const [appNumber, setAppNumber] = useState<StatementsAppNumbers | null>(null);
    const { loading, error, statements, hasMore } = useAdminStatements(pageNumber, state, appNumber);
-   const { value: userId, changeValue: changeUserId } = useInput('');
 
    useEffect(() => {
       setPageNumber(1);
@@ -41,7 +38,6 @@ const AdminStatementList = () => {
          <ListCardConsole>
             <StatementsStateDropDown setState={setState} />
             <StatementsAppNumberDropDown setAppNumber={setAppNumber} />
-            <MainInput value={userId} setValue={changeUserId} />
          </ListCardConsole>
          <ListCardWrapper>
             {statements.map((statement, index) => {

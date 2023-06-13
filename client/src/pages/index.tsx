@@ -1,11 +1,11 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { ShopPage } from './ShopPage';
 import { Header } from 'widgets/Header';
 import DevicePage from './DevicePage';
 import UserPage from './UserPage';
 import { useEffect } from 'react';
 import { fetchUserAuth } from 'shared/store/userStore/fetchUserAuth';
-import { useAppDispatch } from 'shared/lib/hooks';
+import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import UserLiked from 'widgets/UserLiked';
 import {
    P_ADMIN,
@@ -18,6 +18,7 @@ import {
    P_USER_CHAT,
    P_USER_LIKED,
    P_USER_MYPRODUCT,
+   P_USER_MYPRODUCT_EDITDEVICE,
    P_USER_PURCHES,
    P_USER_STATEMENT,
    P_USER_SUPPORT,
@@ -29,9 +30,17 @@ import DeviceInfoPurches from 'widgets/DeviceInfo/ui/DeviceInfoPurches';
 import AdminPage from './AdminPage';
 import { AdminStatementList } from 'widgets/AdminStatement';
 import { StatementInfo } from 'widgets/StatementInfo';
+import { checkRoles } from 'shared/lib/functions/checkRoles';
+import UserStatementList from 'widgets/AdminStatement/ui/UesrStatement';
+import { MyProductPage } from 'widgets/MyProductPage';
+import { DeviceEditor } from 'widgets/DeviceEditor';
+import { ChatAdminList, ChatUserList } from 'widgets/Chat';
+import PreChat from 'widgets/Chat/ui/PreChat';
+import SupportChat from 'widgets/Chat/ui/SupportChat';
 
 export const Routing = () => {
    const dispatch = useAppDispatch();
+   const { user } = useAppSelector((state) => state);
    useEffect(() => {
       dispatch(fetchUserAuth());
    }, [dispatch]);
@@ -42,22 +51,40 @@ export const Routing = () => {
             <Route path={P_SHOP} element={<ShopPage />} />
             <Route path={`${P_DEVICE}/:id`} element={<DevicePage />} />
 
-            <Route path={P_USER} element={<UserPage />}>
-               <Route path={P_USER_LIKED} element={<UserLiked />} />
-               <Route path={P_USER_CART} element={<UserCart />} />
-               <Route path={`${P_USER_CART}/:basketDeviceId`} element={<DeviceInfoCart />} />
-               <Route path={P_USER_CHAT} element={<div>{P_USER_CHAT}</div>} />
-               <Route path={P_USER_MYPRODUCT} element={<div>{P_USER_MYPRODUCT}</div>} />
-               <Route path={P_USER_PURCHES} element={<UserPurches />} />
-               <Route path={`${P_USER_PURCHES}/:purchesId`} element={<DeviceInfoPurches />} />
-               <Route path={P_USER_STATEMENT} element={<div>{P_USER_STATEMENT}</div>} />
-               <Route path={P_USER_SUPPORT} element={<div>{P_USER_SUPPORT}</div>} />
-            </Route>
-            <Route path={P_ADMIN} element={<AdminPage />}>
-               <Route path={P_ADMIN_STATEMENT} element={<AdminStatementList />} />
-               <Route path={`${P_ADMIN_STATEMENT}/:statementId`} element={<StatementInfo />} />
-               <Route path={P_ADMIN_CHAT} element={<div>{P_ADMIN_CHAT} </div>} />
-            </Route>
+            {user.auth && (
+               <Route path={P_USER} element={<UserPage />}>
+                  <Route path={P_USER_LIKED} element={<UserLiked />} />
+                  <Route path={P_USER_CART} element={<UserCart />} />
+                  <Route path={`${P_USER_CART}/:basketDeviceId`} element={<DeviceInfoCart />} />
+                  <Route path={P_USER_CHAT} element={<ChatUserList />} />
+                  <Route path={`${P_USER_CHAT}/:chatId`} element={<PreChat />} />
+                  <Route path={P_USER_MYPRODUCT} element={<MyProductPage />} />
+                  {user?.user?.roles && checkRoles(['VENDOR'], user.user.roles) && (
+                     <>
+                        <Route path={P_USER_MYPRODUCT_EDITDEVICE} element={<DeviceEditor />} />
+                        <Route
+                           path={`${P_USER_MYPRODUCT_EDITDEVICE}/:deviceId`}
+                           element={<DeviceEditor />}
+                        />
+                     </>
+                  )}
+
+                  <Route path={P_USER_PURCHES} element={<UserPurches />} />
+                  <Route path={`${P_USER_PURCHES}/:purchesId`} element={<DeviceInfoPurches />} />
+                  <Route path={P_USER_STATEMENT} element={<UserStatementList />} />
+                  <Route path={`${P_USER_STATEMENT}/:statementId`} element={<StatementInfo />} />
+                  <Route path={P_USER_SUPPORT} element={<SupportChat />} />
+               </Route>
+            )}
+            {user?.user?.roles && checkRoles(['ADMIN'], user.user.roles) && (
+               <Route path={P_ADMIN} element={<AdminPage />}>
+                  <Route path={P_ADMIN_STATEMENT} element={<AdminStatementList />} />
+                  <Route path={`${P_ADMIN_STATEMENT}/:statementId`} element={<StatementInfo />} />
+                  <Route path={P_ADMIN_CHAT} element={<ChatAdminList />} />
+                  <Route path={`${P_ADMIN_CHAT}/:chatId`} element={<PreChat />} />
+               </Route>
+            )}
+            <Route path="*" element={<Navigate to={P_SHOP} />} />
          </Routes>
       </>
    );

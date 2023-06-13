@@ -82,6 +82,7 @@ class StatementsService {
    async getSome(limit, page, queryParams) {
       try {
          const { date, state, appNumber, userId } = queryParams;
+
          const offset = limit * page - limit;
 
          const params = {};

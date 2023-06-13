@@ -18,6 +18,7 @@ export interface IOneStatement extends IOneShortStatement {
    userName: string;
    appNumber: number;
    createdAt: string;
+   adminComment: string;
 }
 
 export interface IStatements {

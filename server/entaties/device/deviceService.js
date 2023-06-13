@@ -26,7 +26,7 @@ class DeviceService {
          throw e;
       }
    }
-   async getAllDevice(limit, page, search, typeId, brandId) {
+   async getAllDevice(limit, page, search, typeId, brandId, userId = null) {
       try {
          const offset = limit * page - limit;
          search = search ? `%${search}%` : '%';
@@ -45,13 +45,16 @@ class DeviceService {
          if (brandId) {
             params.brandId = { [Op.eq]: brandId };
          }
+         if (userId) {
+            params.userId = { [Op.eq]: userId };
+         }
 
          const devices = await deviceRepository.getAllDevice(limit, offset, params);
-         const devicesDto = devices.map((device) => {
+         const devicesDto = devices.rows.map((device) => {
             const deviceDto = new OneDeviceDto(device);
             return { ...deviceDto };
          });
-         return devicesDto;
+         return { devices: devicesDto, count: devices.count };
       } catch (e) {
          throw e;
       }

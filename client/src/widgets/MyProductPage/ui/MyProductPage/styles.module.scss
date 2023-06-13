@@ -1,0 +1,52 @@
+@import './../../../../shared/styles/varible.scss';
+
+.myproduct {
+   display: grid;
+   grid-template-columns: repeat(3, 1fr);
+   gap: 30px;
+
+   @media (max-width: 1450px) {
+      grid-template-columns: repeat(2, 1fr);
+   }
+   @media (max-width: 1050px) {
+      grid-template-columns: repeat(2, 1fr);
+   }
+   @media (max-width: 800px) {
+      grid-template-columns: repeat(1, 1fr);
+   }
+
+   &__statementbar {
+      grid-column: 3 / 4;
+      display: flex;
+      justify-self: center;
+      align-items: flex-start;
+
+      @media (max-width: 1450px) {
+         grid-column: 2 /3;
+      }
+      @media (max-width: 800px) {
+         grid-column: 1/2;
+      }
+   }
+
+   &__tape {
+      grid-column: 1 / 3;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: max-content(500px);
+      gap: 30px;
+
+      @media (max-width: 1450px) {
+         grid-column: 1 / 2;
+         grid-template-columns: repeat(1, 1fr);
+      }
+   }
+   &__card {
+   }
+}
+.row {
+   display: flex;
+   gap: 15px;
+   align-items: center;
+   flex-wrap: wrap;
+}

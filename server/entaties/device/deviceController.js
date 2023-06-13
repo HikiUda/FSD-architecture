@@ -34,6 +34,24 @@ class DeviceController {
          next(e);
       }
    }
+   async getUserDevice(req, res, next) {
+      try {
+         const { limit = 10, page = 1, search = '', typeId = 0, brandId = 0 } = req.query;
+         const { id: userId } = req.user;
+
+         const data = await deviceService.getAllDevice(
+            limit,
+            page,
+            search,
+            typeId,
+            brandId,
+            userId,
+         );
+         res.json(data);
+      } catch (e) {
+         next(e);
+      }
+   }
    async updateDevice(req, res, next) {
       try {
          const { id } = req.params;

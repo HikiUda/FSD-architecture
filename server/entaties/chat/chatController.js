@@ -3,7 +3,6 @@ const chatService = require('./chatService');
 
 class ChatController {
    handleWSRequest(ws, req, aWss) {
-      ws.send('You are connected!');
       ws.on('message', async (msg) => {
          let message = JSON.parse(msg);
          let { chatId } = message;
@@ -15,12 +14,12 @@ class ChatController {
             case 'getSomeContent':
                const { limit = 20, portion = 1 } = message;
                const data = await chatService.getSomeMessage(chatId, limit, portion);
+               data.event = 'getSomeContent';
                const jsondata = JSON.stringify(data);
                ws.send(jsondata);
                break;
             case 'sendMessage':
-               let { text } = message;
-               let { id: userId } = req.user;
+               let { text, userId } = message;
                await chatService.createMessage(aWss, text, userId, chatId);
 
                break;
@@ -33,11 +32,11 @@ class ChatController {
       try {
          const { id: userIdOne } = req.user;
          const { withUserId: userIdTwo } = req.body;
-         if (userIdOne == userIdTwo) {
-            throw CommonError.BadRequest('Нельзя открыть чат с самим собой!');
-         }
          if (!userIdTwo) {
             throw CommonError.BadRequest('Некорректные данные');
+         }
+         if (userIdOne == userIdTwo) {
+            throw CommonError.BadRequest('Нельзя открыть чат с самим собой!');
          }
          const data = await chatService.createChat(userIdOne, userIdTwo);
          return res.json(data);
@@ -58,6 +57,24 @@ class ChatController {
       try {
          const { id: userId } = req.user;
          const data = await chatService.getUserChats(userId);
+         return res.json(data);
+      } catch (e) {
+         next(e);
+      }
+   }
+   async getChat(req, res, next) {
+      try {
+         const { chatId } = req.params;
+         const data = await chatService.getChat(chatId);
+         return res.json(data);
+      } catch (e) {
+         next(e);
+      }
+   }
+   async getSupportChat(req, res, next) {
+      try {
+         const { id: userId } = req.user;
+         const data = await chatService.getSupportChat(userId);
          return res.json(data);
       } catch (e) {
          next(e);

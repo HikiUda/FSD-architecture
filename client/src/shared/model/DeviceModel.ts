@@ -27,6 +27,10 @@ export interface IOneDevice {
    brandName: string;
    info: IDeviceInfo[] | null;
 }
+export interface IDevices {
+   count: number;
+   devices: IOneDevice[];
+}
 
 export interface IOneDeviceCart extends IOneDevice {
    forPurches: number;

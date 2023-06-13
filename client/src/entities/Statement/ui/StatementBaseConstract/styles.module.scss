@@ -1,0 +1,15 @@
+.base {
+}
+
+.button {
+   & + * {
+      margin-top: 10px;
+   }
+}
+
+.title {
+   font-size: 30px;
+   & + * {
+      margin-top: 20px;
+   }
+}

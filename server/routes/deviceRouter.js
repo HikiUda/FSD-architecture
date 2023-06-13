@@ -9,6 +9,7 @@ const router = Router();
 
 router.post('/', authMiddleware, checkRolesMiddleware([ADMIN]), deviceController.createDevice);
 router.get('/', deviceController.getAllDevice);
+router.get('/user', authMiddleware, deviceController.getUserDevice);
 router.get('/:id', deviceController.getOneDevice);
 router.put('/:id', authMiddleware, deviceController.updateDevice);
 router.post('/:id/comment', authMiddleware, deviceCommentController.create);

@@ -1,0 +1,13 @@
+.state {
+   font-size: 18px;
+
+   &_accept {
+      color: green;
+   }
+   &_reject {
+      color: red;
+   }
+   &_pending {
+      color: blue;
+   }
+}
