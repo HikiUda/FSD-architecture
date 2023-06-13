@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { ShopPage } from './ShopPage';
 import { Header } from 'widgets/Header';
 import DevicePage from './DevicePage';
@@ -33,10 +33,10 @@ import { StatementInfo } from 'widgets/StatementInfo';
 import { checkRoles } from 'shared/lib/functions/checkRoles';
 import UserStatementList from 'widgets/AdminStatement/ui/UesrStatement';
 import { MyProductPage } from 'widgets/MyProductPage';
-import { DeviceEditor } from 'widgets/DeviceEditor';
 import { ChatAdminList, ChatUserList } from 'widgets/Chat';
 import PreChat from 'widgets/Chat/ui/PreChat';
 import SupportChat from 'widgets/Chat/ui/SupportChat';
+import { DeviceEditorCreate } from 'widgets/DeviceEditor';
 
 export const Routing = () => {
    const dispatch = useAppDispatch();
@@ -61,10 +61,13 @@ export const Routing = () => {
                   <Route path={P_USER_MYPRODUCT} element={<MyProductPage />} />
                   {user?.user?.roles && checkRoles(['VENDOR'], user.user.roles) && (
                      <>
-                        <Route path={P_USER_MYPRODUCT_EDITDEVICE} element={<DeviceEditor />} />
+                        <Route
+                           path={P_USER_MYPRODUCT_EDITDEVICE}
+                           element={<DeviceEditorCreate />}
+                        />
                         <Route
                            path={`${P_USER_MYPRODUCT_EDITDEVICE}/:deviceId`}
-                           element={<DeviceEditor />}
+                           element={<DeviceEditorCreate />}
                         />
                      </>
                   )}

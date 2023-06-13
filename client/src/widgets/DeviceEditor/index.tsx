@@ -1,1 +1,1 @@
-export { default as DeviceEditor } from './ui/DeviceEditor';
+export { default as DeviceEditorCreate } from './ui/DeviceEditorCreate';
