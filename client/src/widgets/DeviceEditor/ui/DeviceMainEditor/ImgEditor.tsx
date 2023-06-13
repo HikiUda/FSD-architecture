@@ -1,7 +1,8 @@
+import { BASE_URL } from 'shared/api';
 import styles from './styles.module.scss';
 
 interface ImgEditorProps {
-   image: File | null;
+   image: File | null | string;
    setImage: (img: File) => void;
 }
 
@@ -16,7 +17,11 @@ const ImgEditor: React.FC<ImgEditorProps> = ({ image, setImage }) => {
       <div className={styles.block}>
          {image && (
             <div className={styles.image_block}>
-               <img src={URL.createObjectURL(image)} alt="img" />
+               {image instanceof File ? (
+                  <img src={URL.createObjectURL(image)} alt="img" />
+               ) : (
+                  <img src={`${BASE_URL}/${image}`} alt="img" />
+               )}
             </div>
          )}
 

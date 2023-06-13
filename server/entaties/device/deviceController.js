@@ -59,7 +59,12 @@ class DeviceController {
          if (!deviceInfo) {
             throw DeviceError.IncorectData();
          }
-         const data = await deviceService.updateDevice(id, deviceInfo);
+
+         let img = '';
+         if (req?.files?.img) {
+            img = req.files.img;
+         }
+         const data = await deviceService.updateDevice(id, deviceInfo, img);
          res.json(data);
       } catch (e) {
          next(e);

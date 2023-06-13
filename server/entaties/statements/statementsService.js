@@ -1,9 +1,9 @@
 const { AppNumbers } = require('../../helpers/statementsConst');
 const statementsRepository = require('./statementsRepository');
-const uuid = require('uuid');
-const path = require('path');
+
 const { OneStatementDto, OneShortStatementDto } = require('./statementsModal');
 const { Op } = require('sequelize');
+const { saveImage } = require('../../helpers/function/saveImage');
 
 class StatementsService {
    async createRoleStatement(userId, appNumber, description) {
@@ -17,7 +17,7 @@ class StatementsService {
    }
    async createDeviceStatement(userId, description, appNumber, deviceInfo, img) {
       try {
-         const imgId = await this.saveImage(img);
+         const imgId = await saveImage(img);
          deviceInfo = JSON.parse(deviceInfo);
          deviceInfo = { ...deviceInfo, userId, img: imgId };
 
@@ -106,15 +106,6 @@ class StatementsService {
             return { ...statementDto };
          });
          return { count: statements.count, statements: statementsDto };
-      } catch (e) {
-         throw e;
-      }
-   }
-   async saveImage(img) {
-      try {
-         const imgId = uuid.v4() + '.png';
-         await img.mv(path.resolve(__dirname, '../..', 'static', imgId));
-         return imgId;
       } catch (e) {
          throw e;
       }

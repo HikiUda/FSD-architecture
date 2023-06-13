@@ -63,10 +63,21 @@ class ChatRepository {
          throw e;
       }
    }
-   async getSupportChat(chatId) {
+   async getSupportChat(userId) {
       try {
-         const chat = await Chat.findOne({ where: { id: chatId, withAdmin: true } });
+         const { email } = await User.findOne({ where: { id: userId } });
+         const chat = await Chat.findOne({
+            where: {
+               name: {
+                  [Op.iLike]: `%${email}%`,
+               },
+               withAdmin: true,
+            },
+         });
+
          return chat;
+         // const chat = await Chat.findOne({ where: { userId: userId, withAdmin: true } });
+         //return chat;
       } catch (e) {
          throw e;
       }

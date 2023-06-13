@@ -6,6 +6,7 @@ export const fetchSupportChat = async () => {
       const response = await $api.get<IChat | null>(`/chat/support`);
       if (!response.data) {
          const response2 = await $api.post<IChat>('/chat/adminchat');
+
          return response2.data;
       } else {
          return response.data;

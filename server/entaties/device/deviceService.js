@@ -2,6 +2,7 @@ const { Op } = require('sequelize');
 const DeviceError = require('../../exceptions/DeviceError');
 const { OneDeviceDto } = require('./deviceModal');
 const deviceRepository = require('./deviceRepository');
+const { saveImage } = require('../../helpers/function/saveImage');
 
 class DeviceService {
    async createDevice(device) {
@@ -35,10 +36,8 @@ class DeviceService {
             name: {
                [Op.iLike]: search,
             },
-            onSale: {
-               [Op.is]: true,
-            },
          };
+
          if (typeId) {
             params.typeId = { [Op.eq]: typeId };
          }
@@ -47,6 +46,10 @@ class DeviceService {
          }
          if (userId) {
             params.userId = { [Op.eq]: userId };
+         } else {
+            params.onSale = {
+               [Op.is]: true,
+            };
          }
 
          const devices = await deviceRepository.getAllDevice(limit, offset, params);
@@ -59,8 +62,14 @@ class DeviceService {
          throw e;
       }
    }
-   async updateDevice(id, deviceInfo) {
+   async updateDevice(id, deviceInfoJSON, image) {
       try {
+         const deviceInfo = JSON.parse(deviceInfoJSON);
+         if (typeof image !== 'string') {
+            let imgId = await saveImage(image);
+            deviceInfo.img = imgId;
+         }
+
          await deviceRepository.updateDevice(id, deviceInfo);
          await deviceRepository.updateDeviceCharacteristic(id, deviceInfo.info);
          return deviceInfo;

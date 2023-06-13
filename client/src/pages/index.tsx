@@ -37,6 +37,7 @@ import { ChatAdminList, ChatUserList } from 'widgets/Chat';
 import PreChat from 'widgets/Chat/ui/PreChat';
 import SupportChat from 'widgets/Chat/ui/SupportChat';
 import { DeviceEditorCreate } from 'widgets/DeviceEditor';
+import DeviceEditorUpdate from 'widgets/DeviceEditor/ui/DeviceEditorUpdate';
 
 export const Routing = () => {
    const dispatch = useAppDispatch();
@@ -67,7 +68,7 @@ export const Routing = () => {
                         />
                         <Route
                            path={`${P_USER_MYPRODUCT_EDITDEVICE}/:deviceId`}
-                           element={<DeviceEditorCreate />}
+                           element={<DeviceEditorUpdate />}
                         />
                      </>
                   )}

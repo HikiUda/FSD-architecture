@@ -45,6 +45,7 @@ class ChatService {
    async getSupportChat(userId) {
       try {
          const chat = await chatRepository.getSupportChat(userId);
+
          if (!chat) {
             return null;
          }

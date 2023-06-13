@@ -4,13 +4,14 @@ import { IDeviceInfo } from 'shared/model/DeviceModel';
 import { fetchDevice } from 'shared/api/fetchDevice';
 
 const DeviceEditor = (
-   deviceId: string | number,
-   callback: (deviceInfo: string, img: File) => void,
+   deviceId: string | number | undefined,
+   callback: (deviceInfo: string, img: File | string) => void,
 ) => {
+   const [error, setError] = useState<string>('');
    const [brandId, setBrandId] = useState<number>(0);
    const [typeId, setTypeId] = useState<number>(0);
    const [onSale, setOnSale] = useState<boolean>(false);
-   const [image, setImage] = useState<File | null>(null);
+   const [image, setImage] = useState<File | null | string>(null);
    const [info, setInfo] = useState<IDeviceInfo[]>([]);
    const [description, setDescription] = useState<string>('');
 
@@ -27,14 +28,15 @@ const DeviceEditor = (
       if (!!Number(deviceId)) {
          fetchDevice(Number(deviceId)).then((data) => {
             setName(data.name);
-            setPrice(String(data.price));
-            setQuantity(String(data.quantity));
+            setPrice(data.price + 'руб.');
+            setQuantity(data.quantity + ' шт.');
             setBrandId(data.brandId);
             setTypeId(data.typeId);
             setBrandSearchValue(data.brandName);
             setTypeSearchValue(data.typeName);
             setDescription(data.description);
             setOnSale(data.onSale);
+            setImage(data.img);
             if (data?.info) {
                setInfo(data.info);
             }
@@ -48,15 +50,18 @@ const DeviceEditor = (
 
    function sendData() {
       if (!name || !brandId || !typeId || !brandSearchValue || !typeSearchValue || !description) {
+         setError('Заполните все поля!');
          return;
       }
 
       let convPrice = convertToNumber(price);
       let convQuantity = convertToNumber(quantity);
       if (!Number(convPrice) || !Number(convQuantity)) {
+         setError('Заполните все поля!');
          return;
       }
       if (!image) {
+         setError('Заполните все поля!');
          return;
       }
 
@@ -80,6 +85,7 @@ const DeviceEditor = (
       });
 
       if (isError) {
+         setError('Заполните все поля!');
          return;
       }
 
@@ -98,6 +104,7 @@ const DeviceEditor = (
       const deviceInfo = JSON.stringify(data);
 
       callback(deviceInfo, image);
+      setError('');
    }
 
    return {
@@ -126,6 +133,7 @@ const DeviceEditor = (
       brands,
       types,
       sendData,
+      error,
    };
 };
 
