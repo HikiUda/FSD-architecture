@@ -1,4 +1,3 @@
-import { StatementsAppTitles } from 'shared/model/StatementModel';
 import styles from './styles.module.scss';
 import { BrandTypeDropDown } from 'features/BrandTypeDropDown';
 import { useBrands, useInput, useTypes } from 'shared/lib/hooks';
@@ -15,30 +14,13 @@ import QuantityInputEditor from '../DeviceMainEditor/QuantityInputEditor';
 import ImgEditor from '../DeviceMainEditor/ImgEditor';
 import DescriptionEditor from '../DeviceMainEditor/DescriptionEditor';
 
-//  interface IOneDevice {
-//    id: number;
-//    name: string;
-//    description: string;
-//    img: string;
-//    rating: number;
-//    price: number;
-//    countOfPurches: number;
-//    quantity: number;
-//    onSale: boolean;
-//    userId: number;
-//    typeId: number;
-//    brandId: number;
-//    typeName: string;
-//    brandName: string;
-//    info: IDeviceInfo[] | null;
-// }
-
 interface DeviceEditorProps {
    callback: (deviceInfo: string, img: File) => void;
    buttonName: string;
+   title: string;
 }
 
-const DeviceEditor: React.FC<DeviceEditorProps> = ({ callback, buttonName }) => {
+const DeviceEditor: React.FC<DeviceEditorProps> = ({ callback, buttonName, title }) => {
    const { deviceId } = useParams();
    const navigate = useNavigate();
 
@@ -140,7 +122,7 @@ const DeviceEditor: React.FC<DeviceEditorProps> = ({ callback, buttonName }) => 
          <SimpleButton onClick={() => navigate(P_USER_MYPRODUCT)} moreClass={styles.button}>
             Назад
          </SimpleButton>
-         <h2 className={styles.title}>{StatementsAppTitles.app3}</h2>
+         <h2 className={styles.title}>{title}</h2>
          <div className={styles.row}>
             <MainInput value={name} setValue={setName} placeholder="Название товара..." />
             <BrandTypeDropDown

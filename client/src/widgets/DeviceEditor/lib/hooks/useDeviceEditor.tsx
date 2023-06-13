@@ -3,7 +3,10 @@ import { useEffect, useState } from 'react';
 import { IDeviceInfo } from 'shared/model/DeviceModel';
 import { fetchDevice } from 'shared/api/fetchDevice';
 
-const DeviceEditor = (deviceId: number, callback: (deviceInfo: string, img: File) => void) => {
+const DeviceEditor = (
+   deviceId: string | number,
+   callback: (deviceInfo: string, img: File) => void,
+) => {
    const [brandId, setBrandId] = useState<number>(0);
    const [typeId, setTypeId] = useState<number>(0);
    const [onSale, setOnSale] = useState<boolean>(false);
@@ -122,6 +125,7 @@ const DeviceEditor = (deviceId: number, callback: (deviceInfo: string, img: File
       setName,
       brands,
       types,
+      sendData,
    };
 };
 
